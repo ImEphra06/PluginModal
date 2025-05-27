@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Modal from "./modal/modal";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default function App() {
+	const messageModal = "Hello World";
+	const CustomGreen = "#93AD18";
+	const paramsModal = { bgColor: CustomGreen, Color: "white", link: "" };
+	const [openModal, setOpenModal] = useState(true);
+
+	return (
+		<div style={{ width: 640, margin: "15px auto" }}>
+			<Modal
+				display={openModal}
+				setDisplay={setOpenModal}
+				message={messageModal}
+				params={paramsModal}
+			/>
+		</div>
+	);
 }
-
-export default App;
