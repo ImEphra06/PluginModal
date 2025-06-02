@@ -11,8 +11,8 @@
 `import Modal from "@imephra06/pluginmodal";`
 
 ### Utilisation comme un composant normal (ex: App.js)
-
-`function App() {
+```
+function App() {
   const [open, setOpen] = useState(true);
 
   const messageModal = "Hello from plugin!";
@@ -34,4 +34,5 @@
   );
 }
 
-export default App;`
+export default App;
+```
