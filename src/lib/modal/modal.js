@@ -6,24 +6,28 @@ import "./modal.css";
 function Modal({ display, setDisplay, message, params }) {
 	const navigate = useNavigate();
 
-	const toggleModal = () => {
-		setDisplay(!display);
-		if (params.link) navigate(params.link);
+	const handleClose = () => {
+		setDisplay(false);
+		if (params.link) {
+			navigate(params.link);
+		}
 	};
 
+	if (!display) return null;
+
 	return (
-		<div className={`modal-container ${display ? "show" : "hide"}`}>
-			<div className="overlay" />
+		<div className="modal-container show">
+			<div className="overlay" onClick={handleClose} />
 			<div className="modal-info">
 				<p className="message">{message}</p>
 				<button
 					className="modal-button"
 					style={{
-						backgroundColor: params.bgColor,
-						color: params.Color,
-						borderColor: params.bgColor,
+						backgroundColor: params.bgColor || "#007bff",
+						color: params.Color || "#fff",
+						borderColor: params.bgColor || "#007bff",
 					}}
-					onClick={toggleModal}
+					onClick={handleClose}
 				>
 					OK
 				</button>

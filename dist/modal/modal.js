@@ -15,14 +15,18 @@ function Modal(_ref) {
     message = _ref.message,
     params = _ref.params;
   var navigate = (0, _reactRouterDom.useNavigate)();
-  var toggleModal = function toggleModal() {
-    setDisplay(!display);
-    if (params.link) navigate(params.link);
+  var handleClose = function handleClose() {
+    setDisplay(false);
+    if (params.link) {
+      navigate(params.link);
+    }
   };
+  if (!display) return null;
   return /*#__PURE__*/_react["default"].createElement("div", {
-    className: "modal-container ".concat(display ? "show" : "hide")
+    className: "modal-container show"
   }, /*#__PURE__*/_react["default"].createElement("div", {
-    className: "overlay"
+    className: "overlay",
+    onClick: handleClose
   }), /*#__PURE__*/_react["default"].createElement("div", {
     className: "modal-info"
   }, /*#__PURE__*/_react["default"].createElement("p", {
@@ -30,11 +34,11 @@ function Modal(_ref) {
   }, message), /*#__PURE__*/_react["default"].createElement("button", {
     className: "modal-button",
     style: {
-      backgroundColor: params.bgColor,
-      color: params.Color,
-      borderColor: params.bgColor
+      backgroundColor: params.bgColor || "#007bff",
+      color: params.Color || "#fff",
+      borderColor: params.bgColor || "#007bff"
     },
-    onClick: toggleModal
+    onClick: handleClose
   }, "OK")));
 }
 Modal.propTypes = {
