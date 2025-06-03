@@ -1,23 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
 import "./modal.css";
 
 function Modal({ display, setDisplay, message, params }) {
-	const navigate = useNavigate();
-
-	const handleClose = () => {
+	const toggleModal = () => {
 		setDisplay(false);
-		if (params.link) {
-			navigate(params.link);
+		if (params.onClose && typeof params.onClose === "function") {
+			params.onClose(); // Appelle une fonction fournie par le parent
 		}
 	};
 
-	if (!display) return null;
-
 	return (
-		<div className="modal-container show">
-			<div className="overlay" onClick={handleClose} />
+		<div className={`modal-container ${display ? "show" : "hide"}`}>
+			<div className="overlay" onClick={toggleModal} />
 			<div className="modal-info">
 				<p className="message">{message}</p>
 				<button
@@ -27,7 +22,7 @@ function Modal({ display, setDisplay, message, params }) {
 						color: params.Color || "#fff",
 						borderColor: params.bgColor || "#007bff",
 					}}
-					onClick={handleClose}
+					onClick={toggleModal}
 				>
 					OK
 				</button>
@@ -40,7 +35,11 @@ Modal.propTypes = {
 	display: PropTypes.bool.isRequired,
 	setDisplay: PropTypes.func.isRequired,
 	message: PropTypes.string.isRequired,
-	params: PropTypes.object.isRequired,
+	params: PropTypes.shape({
+		bgColor: PropTypes.string,
+		Color: PropTypes.string,
+		onClose: PropTypes.func, // Fournie par le parent
+	}),
 };
 
 export default Modal;
